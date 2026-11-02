@@ -32,3 +32,15 @@ ALERTA: 00:00:5e:00:53:34: máximo de 20 respostas em 5.0 s (limite 10)
 ok: 00:00:5e:00:53:01: máximo de 3 respostas em 5.0 s (limite 10)
 ok: 00:00:5e:00:53:17: máximo de 1 respostas em 5.0 s (limite 10)
 ok: 00:00:5e:00:53:95: máximo de 1 respostas em 5.0 s (limite 10)
+
+$ python ../scripts/arp_sem_pergunta.py arp-todos-example.csv --espera 20
+00:00:5e:00:53:01: 1 respostas, 0 sem pergunta (espera de 20.0 s)
+00:00:5e:00:53:95: 1 respostas, 0 sem pergunta (espera de 20.0 s)
+00:00:5e:00:53:34: 20 respostas, 20 sem pergunta (espera de 20.0 s)
+00:00:5e:00:53:17: 1 respostas, 0 sem pergunta (espera de 20.0 s)
+
+$ python ../scripts/arp_sem_pergunta.py arp-todos-example.csv --espera 5
+00:00:5e:00:53:01: 1 respostas, 0 sem pergunta (espera de 5.0 s)
+00:00:5e:00:53:95: 1 respostas, 0 sem pergunta (espera de 5.0 s)
+00:00:5e:00:53:34: 20 respostas, 20 sem pergunta (espera de 5.0 s)
+00:00:5e:00:53:17: 1 respostas, 1 sem pergunta (espera de 5.0 s)

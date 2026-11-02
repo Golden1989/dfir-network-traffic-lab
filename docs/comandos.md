@@ -63,6 +63,15 @@ python .\scripts\taxa_arp.py "$lab\dados\arp-$cap.csv" --limite 10 --janela 5
 
 `arp.opcode == 2` deixa só as respostas (1 é requisição). O script conta respostas por MAC de origem numa janela deslizante. Para checar spoofing, compare `eth.src` com `arp.src.hw_mac` e veja se um MAC diz ter vários IPs (ou um IP, vários MACs).
 
+## 4c. Respostas ARP sem pergunta
+
+```powershell
+& $tshark -r "$lab\pcaps\$cap.pcapng" -Y "arp" -T fields -e frame.time_epoch -e arp.opcode -e eth.src -e arp.src.proto_ipv4 -e arp.dst.proto_ipv4 -E header=y -E "separator=," | Out-File -Encoding utf8 "$lab\dados\arp-todos-$cap.csv"
+python .\scripts\arp_sem_pergunta.py "$lab\dados\arp-todos-$cap.csv" --espera 20
+```
+
+Aqui o filtro é só `arp`, para trazer perguntas (opcode 1) e respostas (opcode 2). `--espera` é o atraso máximo entre a pergunta e a resposta. Uma espera muito curta marca como "sem pergunta" respostas legítimas que chegaram atrasadas; uma muito longa deixa uma enxurrada se esconder atrás de uma pergunta antiga.
+
 ## Cuidados
 - No PowerShell, argumentos com vírgula precisam de aspas: `-E "separator=,"`.
 - Use `| Out-File -Encoding utf8` para gravar os CSVs. Os scripts também leem UTF-16, mas UTF-8 é o padrão daqui para frente.

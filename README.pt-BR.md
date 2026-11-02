@@ -27,6 +27,7 @@ Evidências, limites e casos em aberto estão no [relatório](reports/relatorio-
 | `scripts/contar_portas.py` | Versão 1, didática: conta portas distintas por par origem/destino na captura inteira, sem janela de tempo (edite o caminho do CSV no topo do arquivo) |
 | `scripts/contar_portas_v3.py` | Procura varredura de portas: conta portas distintas por par origem/destino em uma janela deslizante (`--limite`, `--janela`) |
 | `scripts/taxa_arp.py` | Procura taxa anormal de respostas ARP: conta respostas ARP por MAC de origem em uma janela deslizante, para achar enxurradas de respostas não solicitadas (`--limite`, `--janela`) |
+| `scripts/arp_sem_pergunta.py` | Conta as respostas ARP que não tiveram pergunta correspondente nos `--espera` segundos anteriores, por MAC de origem (checagem de resposta não solicitada; use junto com `taxa_arp.py`) |
 | `scripts/portas_abertas.py` | Lista as portas abertas (SYN/ACK) e quantas vezes cada uma respondeu |
 | `scripts/contar_ja4.py` | Agrupa os Client Hello pela impressão JA4 e lista os nomes (SNI) de cada grupo |
 | `scripts/comparar_ja4.py` | Compara as impressões JA4 de um nome (SNI) entre várias capturas |
@@ -64,6 +65,7 @@ A pasta `examples/` tem CSVs pequenos e **sintéticos** (faixas de IP de documen
 python .\scripts\contar_portas_v3.py .\examples\syn-example.csv --limite 100 --janela 5
 python .\scripts\portas_abertas.py .\examples\synack-example.csv
 python .\scripts\taxa_arp.py .\examples\arp-example.csv --limite 10 --janela 5
+python .\scripts\arp_sem_pergunta.py .\examples\arp-todos-example.csv --espera 20
 python .\scripts\contar_ja4.py .\examples\hellos-captura01-example.csv
 python .\scripts\comparar_ja4.py --pasta .\examples --nome telemetry.example.net
 ```
