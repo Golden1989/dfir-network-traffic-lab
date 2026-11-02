@@ -23,6 +23,13 @@ A study lab on network traffic analysis for DFIR (digital forensics and incident
 
 Script names, option names, and comments are in Portuguese, because this is a Brazilian study project.
 
+## Reports
+
+The full forensic report from this lab, in two languages:
+
+- [`reports/forensic-report-en.pdf`](reports/forensic-report-en.pdf) (English)
+- [`reports/relatorio-forense-pt.pdf`](reports/relatorio-forense-pt.pdf) (Portuguese)
+
 ## Requirements
 
 - Python 3.8 or newer (standard library only)

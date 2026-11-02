@@ -21,6 +21,13 @@ Laboratório de análise de tráfego de rede para DFIR (forense digital e respos
 | `scripts/comparar_ja4.py` | Compara as impressões JA4 de um nome (SNI) entre várias capturas |
 | `docs/comandos.md` | Comandos do tshark e filtros de exibição do Wireshark |
 
+## Relatórios
+
+O relatório forense completo deste laboratório, em dois idiomas:
+
+- [`reports/relatorio-forense-pt.pdf`](reports/relatorio-forense-pt.pdf) (português)
+- [`reports/forensic-report-en.pdf`](reports/forensic-report-en.pdf) (inglês)
+
 ## Requisitos
 
 - Python 3.8 ou mais novo (só biblioteca padrão)
