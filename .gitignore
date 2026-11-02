@@ -1,0 +1,29 @@
+# Dados de captura: nunca publicar
+*.pcap
+*.pcapng
+*.cap
+*.etl
+
+# Chaves TLS (permitem decifrar as capturas)
+*.log
+sslkeys*
+chaves/
+*.key
+*.pem
+
+# Dados derivados das capturas
+*.csv
+pcaps/
+dados/
+resultados*.txt
+
+# Notas privadas (contêm endereços MAC e nomes de aparelhos)
+notas/
+*.bak
+*.bak.*
+
+# Ambiente
+__pycache__/
+*.pyc
+.env
+.vscode/
