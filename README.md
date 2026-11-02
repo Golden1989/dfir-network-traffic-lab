@@ -26,6 +26,7 @@ Full evidence, limits, and open cases are in the [report](reports/forensic-repor
 | --- | --- |
 | `scripts/contar_portas.py` | Version 1, didactic: counts distinct destination ports per source/destination pair over the whole capture, with no time window (edit the CSV path at the top of the file) |
 | `scripts/contar_portas_v3.py` | Looks for port scans: counts distinct ports per source/destination pair in a sliding time window (`--limite` = threshold, `--janela` = window in seconds) |
+| `scripts/taxa_arp.py` | Looks for abnormal ARP reply rates: counts ARP replies per sender MAC in a sliding time window, to spot floods of unsolicited replies (`--limite`, `--janela`) |
 | `scripts/portas_abertas.py` | Lists open ports (from SYN/ACK replies) and how many times each one answered |
 | `scripts/contar_ja4.py` | Groups TLS Client Hellos by JA4 fingerprint and lists the server names (SNI) in each group |
 | `scripts/comparar_ja4.py` | Compares the JA4 fingerprints of one server name (SNI) across several captures |
@@ -64,6 +65,7 @@ The scripts detect on their own whether the CSV is UTF-16 (what `>` produces in 
 ```powershell
 python .\scripts\contar_portas_v3.py .\examples\syn-example.csv --limite 100 --janela 5
 python .\scripts\portas_abertas.py .\examples\synack-example.csv
+python .\scripts\taxa_arp.py .\examples\arp-example.csv --limite 10 --janela 5
 python .\scripts\contar_ja4.py .\examples\hellos-captura01-example.csv
 python .\scripts\comparar_ja4.py --pasta .\examples --nome telemetry.example.net
 ```

@@ -54,6 +54,15 @@ python .\scripts\comparar_ja4.py --pasta "$lab\dados" --nome mobile.events.data.
 
 Troque `--nome` por qualquer parte do SNI (por exemplo `spotify`).
 
+## 4b. Taxa de respostas ARP (enxurrada de respostas sem pergunta)
+
+```powershell
+& $tshark -r "$lab\pcaps\$cap.pcapng" -Y "arp.opcode == 2" -T fields -e frame.time_epoch -e eth.src -e arp.src.hw_mac -e arp.src.proto_ipv4 -e arp.dst.proto_ipv4 -E header=y -E "separator=," | Out-File -Encoding utf8 "$lab\dados\arp-$cap.csv"
+python .\scripts\taxa_arp.py "$lab\dados\arp-$cap.csv" --limite 10 --janela 5
+```
+
+`arp.opcode == 2` deixa só as respostas (1 é requisição). O script conta respostas por MAC de origem numa janela deslizante. Para checar spoofing, compare `eth.src` com `arp.src.hw_mac` e veja se um MAC diz ter vários IPs (ou um IP, vários MACs).
+
 ## Cuidados
 - No PowerShell, argumentos com vírgula precisam de aspas: `-E "separator=,"`.
 - Use `| Out-File -Encoding utf8` para gravar os CSVs. Os scripts também leem UTF-16, mas UTF-8 é o padrão daqui para frente.

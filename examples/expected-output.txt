@@ -26,3 +26,9 @@ captura01-example
 captura02-example
    2x t13d1812h2_dddddddddddd_444444444444
    1x t13d1715h2_bbbbbbbbbbbb_222222222222
+
+$ python ../scripts/taxa_arp.py arp-example.csv --limite 10 --janela 5
+ALERTA: 00:00:5e:00:53:34: máximo de 20 respostas em 5.0 s (limite 10)
+ok: 00:00:5e:00:53:01: máximo de 3 respostas em 5.0 s (limite 10)
+ok: 00:00:5e:00:53:17: máximo de 1 respostas em 5.0 s (limite 10)
+ok: 00:00:5e:00:53:95: máximo de 1 respostas em 5.0 s (limite 10)
