@@ -1,46 +1,52 @@
 # dfir-network-traffic-lab
 
-Laboratório de análise de tráfego de rede para DFIR (forense digital e resposta a incidentes), feito **só na minha própria rede e nos meus próprios aparelhos**, com fins de estudo. Este repositório guarda os **scripts** e o guia de comandos. Não contém capturas (pcap), chaves TLS nem dados derivados delas.
+**English** | [Português (Brasil)](README.pt-BR.md)
 
-## Escopo e ética
+A study lab on network traffic analysis for DFIR (digital forensics and incident response), carried out **only on my own network and my own devices**. This repository holds the **scripts** and a command guide. It does not contain packet captures (pcap), TLS key files, or any data derived from them.
 
-- Capturei apenas o tráfego do meu computador e o que a rede anuncia a todos (ARP, mDNS, SSDP).
-- Varreduras de portas foram feitas só em aparelhos meus.
-- Não use estas ferramentas em redes ou aparelhos de terceiros sem autorização por escrito.
+## Scope and ethics
 
-## O que há aqui
+- I captured only my own computer's traffic and what the network announces to everyone (ARP, mDNS, SSDP).
+- Port scans were run only against devices I own.
+- Do not use these tools on other people's networks or devices without written authorization.
 
-| Arquivo | O que faz |
+## What is here
+
+| File | What it does |
 | --- | --- |
-| `scripts/contar_portas_v3.py` | Procura varredura de portas: conta portas distintas por par origem/destino em uma janela deslizante (`--limite`, `--janela`) |
-| `scripts/portas_abertas.py` | Lista as portas abertas (SYN/ACK) e quantas vezes cada uma respondeu |
-| `scripts/contar_ja4.py` | Agrupa os Client Hello pela impressão JA4 e lista os nomes (SNI) de cada grupo |
-| `scripts/comparar_ja4.py` | Compara as impressões JA4 de um nome (SNI) entre várias capturas |
-| `docs/comandos.md` | Comandos do tshark e filtros de exibição do Wireshark |
+| `scripts/contar_portas.py` | Version 1, didactic: counts distinct destination ports per source/destination pair over the whole capture, with no time window (edit the CSV path at the top of the file) |
+| `scripts/contar_portas_v3.py` | Looks for port scans: counts distinct ports per source/destination pair in a sliding time window (`--limite` = threshold, `--janela` = window in seconds) |
+| `scripts/portas_abertas.py` | Lists open ports (from SYN/ACK replies) and how many times each one answered |
+| `scripts/contar_ja4.py` | Groups TLS Client Hellos by JA4 fingerprint and lists the server names (SNI) in each group |
+| `scripts/comparar_ja4.py` | Compares the JA4 fingerprints of one server name (SNI) across several captures |
+| `docs/comandos.md` | tshark commands and Wireshark display filters (in Portuguese) |
 
-## Requisitos
+Script names, option names, and comments are in Portuguese, because this is a Brazilian study project.
 
-- Python 3.8 ou mais novo (só biblioteca padrão)
-- Wireshark (inclui o `tshark`) e Nmap
+## Requirements
 
-## Como usar
+- Python 3.8 or newer (standard library only)
+- Wireshark (includes `tshark`) and Nmap
 
-1. Capture com o Wireshark e salve o arquivo `.pcapng` numa pasta **fora** deste repositório.
-2. Exporte os campos que interessam para CSV com o `tshark` (comandos em `docs/comandos.md`).
-3. Rode o script sobre o CSV, por exemplo:
+## How to use
+
+1. Capture with Wireshark and save the `.pcapng` file in a folder **outside** this repository.
+2. Export the fields you need to CSV with `tshark` (commands in `docs/comandos.md`).
+3. Run a script on the CSV, for example:
 
 ```powershell
-python .\scripts\contar_portas_v3.py syn-captura.csv --limite 100 --janela 5
+python .\scripts\contar_portas_v3.py syn-capture.csv --limite 100 --janela 5
 ```
 
-Os scripts detectam sozinhos se o CSV está em UTF-16 (o `>` do Windows PowerShell 5) ou UTF-8.
+The scripts detect on their own whether the CSV is UTF-16 (what `>` produces in Windows PowerShell 5) or UTF-8.
 
-## Limitações
+## Limitations
 
-- Os scripts de SYN e SYN/ACK olham só IPv4.
-- A detecção por janela de tempo perde varreduras lentas: aumente a janela para pegá-las, ao custo de mais falsos positivos.
-- A impressão JA4 mostra a família do software, não o aplicativo exato nem o site.
+- The SYN and SYN/ACK scripts look at IPv4 only.
+- Time-window detection misses slow scans: widen the window to catch them, at the cost of more false positives.
+- A JA4 fingerprint shows the software family, not the exact application or website.
+- A port scan is reconnaissance, not proof of intrusion.
 
-## Não faz parte do repositório
+## Not part of the repository
 
-Capturas, arquivos de chaves TLS, CSVs e notas com endereços de aparelhos ficam só no meu computador e estão no `.gitignore`.
+Captures, TLS key files, CSVs, and notes containing device addresses stay on my computer only and are listed in `.gitignore`.
