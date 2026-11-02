@@ -10,6 +10,16 @@ A study lab on network traffic analysis for DFIR (digital forensics and incident
 - Port scans were run only against devices I own.
 - Do not use these tools on other people's networks or devices without written authorization.
 
+## Key findings
+
+Full evidence, limits, and open cases are in the [report](reports/forensic-report-en.pdf).
+
+| Finding | Certainty |
+| --- | --- |
+| QUIC traffic to `dns.google` appears only while the Opera GX browser is running (7 captures compared, one condition changed at a time) | High |
+| With a TLS key log (`SSLKEYLOGFILE`), Wireshark reads my own browser's HTTP traffic in clear text; without the keys, only the SNI, IPs, ports, timings, and sizes are visible | High |
+| A 1,000-port scan is recognized by counting: 1,000 distinct ports in 1.17 s from one source, detected by a sliding-window script (normal browsing did not trigger it) | High |
+
 ## What is here
 
 | File | What it does |
@@ -46,6 +56,19 @@ python .\scripts\contar_portas_v3.py syn-capture.csv --limite 100 --janela 5
 ```
 
 The scripts detect on their own whether the CSV is UTF-16 (what `>` produces in Windows PowerShell 5) or UTF-8.
+
+## Try it without any capture
+
+`examples/` has small **synthetic** CSVs (documentation IP ranges and `.example` names, no real data) and the expected output of each script. From the repository root:
+
+```powershell
+python .\scripts\contar_portas_v3.py .\examples\syn-example.csv --limite 100 --janela 5
+python .\scripts\portas_abertas.py .\examples\synack-example.csv
+python .\scripts\contar_ja4.py .\examples\hellos-captura01-example.csv
+python .\scripts\comparar_ja4.py --pasta .\examples --nome telemetry.example.net
+```
+
+Compare your output with [`examples/expected-output.txt`](examples/expected-output.txt).
 
 ## Limitations
 

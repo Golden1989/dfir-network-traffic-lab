@@ -10,6 +10,16 @@ Laboratório de análise de tráfego de rede para DFIR (forense digital e respos
 - Varreduras de portas foram feitas só em aparelhos meus.
 - Não use estas ferramentas em redes ou aparelhos de terceiros sem autorização por escrito.
 
+## Principais achados
+
+Evidências, limites e casos em aberto estão no [relatório](reports/relatorio-forense-pt.pdf).
+
+| Achado | Certeza |
+| --- | --- |
+| O tráfego QUIC para `dns.google` só aparece com o navegador Opera GX rodando (7 capturas comparadas, mudando uma condição por vez) | Alta |
+| Com o arquivo de chaves TLS (`SSLKEYLOGFILE`), o Wireshark lê em claro o tráfego HTTP do meu próprio navegador; sem as chaves, só ficam visíveis o SNI, os IPs, as portas, os tempos e os tamanhos | Alta |
+| Uma varredura de 1.000 portas se reconhece por contagem: 1.000 portas distintas em 1,17 s da mesma origem, detectadas por um script de janela deslizante (a navegação normal não o disparou) | Alta |
+
 ## O que há aqui
 
 | Arquivo | O que faz |
@@ -44,6 +54,19 @@ python .\scripts\contar_portas_v3.py syn-captura.csv --limite 100 --janela 5
 ```
 
 Os scripts detectam sozinhos se o CSV está em UTF-16 (o `>` do Windows PowerShell 5) ou UTF-8.
+
+## Teste sem ter nenhuma captura
+
+A pasta `examples/` tem CSVs pequenos e **sintéticos** (faixas de IP de documentação e nomes `.example`, sem dados reais) e a saída esperada de cada script. A partir da raiz do repositório:
+
+```powershell
+python .\scripts\contar_portas_v3.py .\examples\syn-example.csv --limite 100 --janela 5
+python .\scripts\portas_abertas.py .\examples\synack-example.csv
+python .\scripts\contar_ja4.py .\examples\hellos-captura01-example.csv
+python .\scripts\comparar_ja4.py --pasta .\examples --nome telemetry.example.net
+```
+
+Compare a sua saída com [`examples/expected-output.txt`](examples/expected-output.txt).
 
 ## Limitações
 

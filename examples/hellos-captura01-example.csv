@@ -1,0 +1,13 @@
+frame.time_epoch,tls.handshake.extensions_server_name,tls.handshake.ja4
+1700000000.000000,app.example.com,t13d1516h2_aaaaaaaaaaaa_111111111111
+1700000001.000000,app.example.com,t13d1516h2_aaaaaaaaaaaa_111111111111
+1700000002.000000,app.example.com,t13d1516h2_aaaaaaaaaaaa_111111111111
+1700000003.000000,app.example.com,t13d1516h2_aaaaaaaaaaaa_111111111111
+1700000004.000000,app.example.com,t13d1516h2_aaaaaaaaaaaa_111111111111
+1700000005.000000,cdn.example.org,t13d1516h2_aaaaaaaaaaaa_111111111111
+1700000006.000000,cdn.example.org,t13d1516h2_aaaaaaaaaaaa_111111111111
+1700000007.000000,cdn.example.org,t13d1516h2_aaaaaaaaaaaa_111111111111
+1700000008.000000,telemetry.example.net,t13d1715h2_bbbbbbbbbbbb_222222222222
+1700000009.000000,telemetry.example.net,t13d1715h2_bbbbbbbbbbbb_222222222222
+1700000010.000000,video.example.com,q13d0310h3_cccccccccccc_333333333333
+1700000011.000000,video.example.com,q13d0310h3_cccccccccccc_333333333333

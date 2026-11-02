@@ -1,0 +1,28 @@
+# Saída esperada / Expected output (dados sintéticos; IPs de documentação RFC 5737, nomes .example)
+
+$ python ../scripts/contar_portas_v3.py syn-example.csv --limite 100 --janela 5
+ALERTA: 192.0.2.10 -> 192.0.2.20: máximo de 300 portas distintas em 5.0 s (limite 100)
+ok: 192.0.2.10 -> 198.51.100.5: máximo de 1 portas distintas em 5.0 s (limite 100)
+
+$ python ../scripts/portas_abertas.py synack-example.csv
+192.0.2.20: 2 portas abertas
+  22/tcp: 1 SYN/ACK (1 resposta + 0 repetições)
+  8080/tcp: 3 SYN/ACK (1 resposta + 2 repetições)
+
+$ python ../scripts/contar_ja4.py hellos-captura01-example.csv
+12 Client Hello, 3 impressões JA4 distintas
+
+8x t13d1516h2_aaaaaaaaaaaa_111111111111
+     app.example.com
+     cdn.example.org
+2x t13d1715h2_bbbbbbbbbbbb_222222222222
+     telemetry.example.net
+2x q13d0310h3_cccccccccccc_333333333333
+     video.example.com
+
+$ python ../scripts/comparar_ja4.py --pasta . --nome telemetry.example.net
+captura01-example
+   2x t13d1715h2_bbbbbbbbbbbb_222222222222
+captura02-example
+   2x t13d1812h2_dddddddddddd_444444444444
+   1x t13d1715h2_bbbbbbbbbbbb_222222222222

@@ -27,3 +27,6 @@ __pycache__/
 *.pyc
 .env
 .vscode/
+
+# Exemplos sinteticos (sem dados reais) podem ser publicados
+!examples/*.csv
