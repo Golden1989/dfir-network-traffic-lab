@@ -72,6 +72,24 @@ python .\scripts\arp_sem_pergunta.py "$lab\dados\arp-todos-$cap.csv" --espera 20
 
 Aqui o filtro é só `arp`, para trazer perguntas (opcode 1) e respostas (opcode 2). `--espera` é o atraso máximo entre a pergunta e a resposta. Uma espera muito curta marca como "sem pergunta" respostas legítimas que chegaram atrasadas; uma muito longa deixa uma enxurrada se esconder atrás de uma pergunta antiga.
 
+## 5. Cadeia de custódia (manifesto de hashes)
+
+```powershell
+python .\scripts\manifesto_hashes.py              # grava o manifesto (uma vez)
+python .\scripts\manifesto_hashes.py --verificar  # confere as capturas contra o manifesto
+```
+
+O manifesto tem uma linha por captura, no formato `hash`, dois espaços, `nome` (veja `examples/manifest-example.txt`). A conferência mostra um destes resultados por arquivo:
+
+```
+ok: example-capture-01.pcapng
+ALTERADO: example-capture-02.pcapng
+AUSENTE: example-capture-03.pcapng
+NOVO (fora do manifesto): example-capture-04.pcapng
+```
+
+Grave o manifesto logo depois de salvar as capturas e nunca o recrie à mão: se uma captura mudar, apagar o manifesto apaga também a prova. O script recusa sobrescrever um manifesto que já existe. Para cada movimentação de uma captura (cópia, análise, backup), registre uma linha na folha de custódia (`templates/folha-de-custodia.md`) e anote se o hash foi conferido.
+
 ## Cuidados
 - No PowerShell, argumentos com vírgula precisam de aspas: `-E "separator=,"`.
 - Use `| Out-File -Encoding utf8` para gravar os CSVs. Os scripts também leem UTF-16, mas UTF-8 é o padrão daqui para frente.

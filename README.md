@@ -31,6 +31,8 @@ Full evidence, limits, and open cases are in the [report](reports/forensic-repor
 | `scripts/portas_abertas.py` | Lists open ports (from SYN/ACK replies) and how many times each one answered |
 | `scripts/contar_ja4.py` | Groups TLS Client Hellos by JA4 fingerprint and lists the server names (SNI) in each group |
 | `scripts/comparar_ja4.py` | Compares the JA4 fingerprints of one server name (SNI) across several captures |
+| `scripts/manifesto_hashes.py` | Chain of custody: writes a SHA-256 manifest of the captures in a folder; with `--verificar` it recalculates and reports `ok`, `ALTERADO` (changed), `AUSENTE` (missing), or `NOVO` (not in the manifest). Refuses to overwrite an existing manifest (edit the two paths at the top of the file) |
+| `templates/folha-de-custodia.md` | Blank chain-of-custody sheet (Portuguese and English labels): evidence, collection, transfer log, closing |
 | `docs/comandos.md` | tshark commands and Wireshark display filters (in Portuguese) |
 
 Script names, option names, and comments are in Portuguese, because this is a Brazilian study project.
@@ -74,6 +76,12 @@ python .\scripts\comparar_ja4.py --pasta .\examples --nome telemetry.example.net
 
 Compare your output with [`examples/expected-output.txt`](examples/expected-output.txt).
 
+## Chain of custody
+
+`scripts/manifesto_hashes.py` proves a capture did not change after it was saved. Run it once to write the manifest, and later with `--verificar` to check it. Each time someone copies, moves, or analyzes a capture, add a line to the transfer log of the custody sheet (`templates/folha-de-custodia.md`).
+
+`examples/manifest-example.txt` shows the manifest format and `examples/custody-sheet-example.md` shows a filled sheet. Both are **fictional** (invented names, a made-up hash, no real capture). The real manifest and the real sheets stay with the captures, outside this repository.
+
 ## Limitations
 
 - The SYN and SYN/ACK scripts look at IPv4 only.
@@ -83,4 +91,4 @@ Compare your output with [`examples/expected-output.txt`](examples/expected-outp
 
 ## Not part of the repository
 
-Captures, TLS key files, CSVs, and notes containing device addresses stay on my computer only and are listed in `.gitignore`.
+Captures, TLS key files, CSVs, hash manifests, filled custody sheets, and notes containing device addresses stay on my computer only and are listed in `.gitignore`.

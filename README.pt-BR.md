@@ -31,6 +31,8 @@ Evidências, limites e casos em aberto estão no [relatório](reports/relatorio-
 | `scripts/portas_abertas.py` | Lista as portas abertas (SYN/ACK) e quantas vezes cada uma respondeu |
 | `scripts/contar_ja4.py` | Agrupa os Client Hello pela impressão JA4 e lista os nomes (SNI) de cada grupo |
 | `scripts/comparar_ja4.py` | Compara as impressões JA4 de um nome (SNI) entre várias capturas |
+| `scripts/manifesto_hashes.py` | Cadeia de custódia: grava um manifesto de hashes SHA-256 das capturas de uma pasta; com `--verificar` recalcula e informa `ok`, `ALTERADO`, `AUSENTE` ou `NOVO` (fora do manifesto). Recusa sobrescrever um manifesto existente (edite os dois caminhos no topo do arquivo) |
+| `templates/folha-de-custodia.md` | Folha de custódia em branco (rótulos em português e inglês): evidência, coleta, registro de movimentações e encerramento |
 | `docs/comandos.md` | Comandos do tshark e filtros de exibição do Wireshark |
 
 ## Relatórios
@@ -72,6 +74,12 @@ python .\scripts\comparar_ja4.py --pasta .\examples --nome telemetry.example.net
 
 Compare a sua saída com [`examples/expected-output.txt`](examples/expected-output.txt).
 
+## Cadeia de custódia
+
+O `scripts/manifesto_hashes.py` prova que uma captura não mudou depois de salva. Rode uma vez para gravar o manifesto e, depois, com `--verificar` para conferir. Sempre que alguém copiar, mover ou analisar uma captura, acrescente uma linha ao registro de movimentações da folha de custódia (`templates/folha-de-custodia.md`).
+
+`examples/manifest-example.txt` mostra o formato do manifesto e `examples/custody-sheet-example.md` mostra uma folha preenchida. Os dois são **fictícios** (nomes inventados, hash inventado, nenhuma captura real). O manifesto real e as folhas reais ficam junto das capturas, fora deste repositório.
+
 ## Limitações
 
 - Os scripts de SYN e SYN/ACK olham só IPv4.
@@ -80,4 +88,4 @@ Compare a sua saída com [`examples/expected-output.txt`](examples/expected-outp
 
 ## Não faz parte do repositório
 
-Capturas, arquivos de chaves TLS, CSVs e notas com endereços de aparelhos ficam só no meu computador e estão no `.gitignore`.
+Capturas, arquivos de chaves TLS, CSVs, manifestos de hashes, folhas de custódia preenchidas e notas com endereços de aparelhos ficam só no meu computador e estão no `.gitignore`.
